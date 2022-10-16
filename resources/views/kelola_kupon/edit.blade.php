@@ -31,6 +31,18 @@
                         @method('put')
                         @csrf
                         <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label for="id_pelanggan">Nomor ID Pelanggan<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('id_pelanggan') is-invalid @enderror"
+                                    name="id_pelanggan" id="id_pelanggan" readonly value="{{ old('id_pelanggan', $pelanggan->id_pelanggan) }}">
+                                @error('id_pelanggan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col form-group">
                                 <label for="nama">Nama Pelanggan<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('nama') is-invalid @enderror"
@@ -120,16 +132,17 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="status" id="TUKAR"
                                                 value="TUKAR" {{ $pelanggan->status == 'TUKAR' ? 'checked' : '' }}>
-                                            <label class="form-check-label text-white badge bg-success" for="TUKAR">
+                                            <label class="form-check-label text-white badge bg-success" onclick="cek()" for="TUKAR">
                                                 Ditukar
                                             </label>
+                                            <p class="fw-light text-wrap" id="check" style="color:red; width:15rem"><i>*Tidak dapat ditukar, poin anda kurang dari 30 Poin</i></p>
                                         </div>
                                     </div>
                                     <div class="col-auto ml-3">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="status" id="BELUM"
                                                 value="BELUM" {{ $pelanggan->status == 'BELUM' ? 'checked' : '' }}>
-                                            <label class="form-check-label text-white badge bg-danger" for="BELUM">
+                                            <label class="form-check-label text-white badge bg-danger" onclick="back()" for="BELUM">
                                                 Belum
                                             </label>
                                         </div>
@@ -153,9 +166,8 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mr-2">Simpan</button>
+                        <button type="submit" id="simpan" class="btn btn-primary mr-2">Simpan</button>
                         <button type="reset" class="btn btn-light mr-2">Batal</button>
-                        {{-- <a href="/kelola" class="btn btn-light">Batal</a> --}}
                     </form>
                     <hr>
                     <div class="col-auto">
@@ -189,6 +201,25 @@
             } else if (!isNaN(result2)) {
                 document.getElementById('poin').value = result2;
             }
+        }
+
+        $("#check").hide();
+        cek = () => {
+            var t_poin = document.getElementById('last_poin').value;
+            if ( t_poin < 30) {
+                $("#check").show();
+                document.getElementById("TUKAR").disabled = true;
+                document.getElementById("simpan").disabled = true;
+            } else {
+                $("#check").hide();
+                document.getElementById("TUKAR").disabled = false;
+            }
+        }
+        
+        back = () => {
+            $("#check").hide();
+            document.getElementById("TUKAR").disabled = false;
+            document.getElementById("simpan").disabled = false;
         }
     </script>
 @endsection

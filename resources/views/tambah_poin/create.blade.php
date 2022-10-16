@@ -30,6 +30,18 @@
                     <form method="post" action="/tambah" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label for="id_pelanggan">Nomor ID Pelanggan<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('id_pelanggan') is-invalid @enderror"
+                                    name="id_pelanggan" id="id_pelanggan" readonly value="{{ 'ARU-' . date('Ym') . '-' .$kode }}">
+                                @error('id_pelanggan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6 form-group">
                                 <label for="nama">Nama Pelanggan<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('nama') is-invalid @enderror"

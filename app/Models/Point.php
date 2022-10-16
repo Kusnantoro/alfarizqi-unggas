@@ -15,8 +15,9 @@ class Point extends Model
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
             return $query->where('nama', 'LIKE', '%' . $search . '%')
-            ->orwhere('no_hp', 'LIKE', '%' . $search . '%')
-            ->orwhere('status', 'LIKE', '%' . $search . '%');
+                ->orwhere('no_hp', 'LIKE', '%' . $search . '%')
+                ->orwhere('id_pelanggan', 'LIKE', '%' . $search . '%')
+                ->orwhere('status', 'LIKE', '%' . $search . '%');
         });
     }
 }

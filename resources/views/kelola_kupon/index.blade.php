@@ -36,6 +36,7 @@
             <table class="table table-hover bg-white">
                 <thead class="thead-primary bg-primary text-white">
                     <tr>
+                        <th class="text-center text-uppercase">No ID</th>
                         <th class="text-center text-uppercase">Nama</th>
                         <th class="text-center text-uppercase">No HP</th>
                         <th class="text-center text-uppercase text-wrap">Alamat</th>
@@ -48,6 +49,7 @@
                     @if ($pelanggans->count())
                         @foreach ($pelanggans as $kelola)
                             <tr>
+                                <td>{{ $kelola->id_pelanggan }}</td>
                                 <td class="text-uppercase">{{ $kelola->nama }}</td>
                                 <td>+62{{ $kelola->no_hp }}</td>
                                 <td class="text-wrap">{{ $kelola->alamat }}</td>
